@@ -7,4 +7,4 @@ spec:
   minAvailable: {{ .Values.logstash.pdb.minAvailable }}
   selector:
     matchLabels:
-      app: logstash
+      app: {{ .Values.logstash.appname }}

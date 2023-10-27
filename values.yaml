@@ -3,6 +3,7 @@ namespace: logging
 
 # logstash values
 logstash:
+  appname: logstash #labels.
   deployment:
     replicaCount: 1
     initialDelaySeconds: 300

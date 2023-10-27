@@ -5,7 +5,7 @@ metadata:
   name: logstash-svc
 spec:
   selector:
-    app: logstash
+    app: {{ .Values.logstash.appname }}
   ports:
     - name: http
       port: 8080

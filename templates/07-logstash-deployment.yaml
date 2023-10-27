@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: {{ .Values.namespace }}
-  name: logstash
+  name: {{ .Values.logstash.appname }}
   labels:
-    app: logstash
+    app: {{ .Values.logstash.appname }}
 spec:
   replicas: {{ .Values.logstash.deployment.replicaCount }}
   selector:
     matchLabels:
-      app: logstash
+      app: {{ .Values.logstash.appname }}
   template:
     metadata:
       labels:
-        app: logstash
+        app: {{ .Values.logstash.appname }}
     spec:
       containers:
-        - name: logstash
+        - name: {{ .Values.logstash.appname }}
           image: "{{ .Values.logstash.image.name }}:{{ .Values.logstash.image.tag }}"
           command:
             - '/bin/sh'
