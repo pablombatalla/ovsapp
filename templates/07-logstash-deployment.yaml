@@ -23,15 +23,15 @@ spec:
             - '-c'
             - 'logstash-plugin install logstash-output-loggly && logstash-plugin install logstash-filter-prune && /usr/local/bin/docker-entrypoint '
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.logstash.port }}
           readinessProbe:
             httpGet:
               path: /
-              port: 8080
+              port: {{ .Values.logstash.port }}
           livenessProbe:
             httpGet:
               path: /
-              port: 8080
+              port: {{ .Values.logstash.port }}
             initialDelaySeconds: {{ .Values.logstash.deployment.initialDelaySeconds }}
             periodSeconds: {{ .Values.logstash.deployment.periodSeconds }}
             timeoutSeconds: {{ .Values.logstash.deployment.timeoutSeconds }}

@@ -8,6 +8,6 @@ spec:
     app: {{ .Values.logstash.appname }}
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: {{ .Values.logstash.port }}
+      targetPort: {{ .Values.logstash.port }}
 

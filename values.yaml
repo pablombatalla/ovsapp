@@ -12,9 +12,9 @@ logstash:
   image:
     name: docker.elastic.co/logstash/logstash
     tag: 7.1.1
+  port: 8080 # must be same port as in logstashConfig port => 8080
   pdb:
     minAvailable: 1
-
 logstashConfig:
   logstash.conf: |
     input {
