@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: logstash-pdb
+  namespace: {{ .Values.namespace }}
+spec:
+  minAvailable: {{ .Values.logstash.pdb.minAvailable }}
+  selector:
+    matchLabels:
+      app: logstash

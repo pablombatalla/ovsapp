@@ -11,6 +11,8 @@ logstash:
   image:
     name: docker.elastic.co/logstash/logstash
     tag: 7.1.1
+  pdb:
+    minAvailable: 1
 
 logstashConfig:
   logstash.conf: |
