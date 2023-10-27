@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: logstash
+  labels:
+    app: logstash
+spec:
+  replicas: {{ .Values.logstash.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: logstash
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      containers:
+        - name: logstash
+          image: "{{ .Values.logstash.image.name }}:{{ .Values.logstash.image.tag }}"
+          command:
+            - '/bin/sh'
+            - '-c'
+            - 'logstash-plugin install logstash-output-loggly && logstash-plugin install logstash-filter-prune && /usr/local/bin/docker-entrypoint '
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: {{ .Values.logstash.deployment.initialDelaySeconds }}
+            periodSeconds: {{ .Values.logstash.deployment.periodSeconds }}
+            timeoutSeconds: {{ .Values.logstash.deployment.timeoutSeconds }}
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/logstash/pipeline
+          env:
+            - name: XPACK_MONITORING_ENABLED
+              value: "false"
+      volumes:
+        - name: config
+          configMap:
+            name: logstash-config
+            items:
+              - key: logstash.conf
+                path: logstash.conf

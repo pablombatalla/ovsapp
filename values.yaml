@@ -1,0 +1,19 @@
+# same namespace for fluent-bit & logstash
+namespace: logging
+
+# logstash values
+logstash:
+  deployment:
+    replicaCount: 2
+    initialDelaySeconds: 300
+    periodSeconds: 10
+    timeoutSeconds: 1
+  image:
+    name: docker.elastic.co/logstash/logstash
+    tag: 7.1.1
+
+# fluent-bit values
+fluentbit:
+  image:
+    name: fluent/fluent-bit
+    tag: 1.0.4
