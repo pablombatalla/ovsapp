@@ -6,6 +6,10 @@ metadata:
   labels:
     k8s-app: fluent-bit
 data:
+{{- range $path, $config := .Values.fluentbitConfig }}
+  {{ $path }}: |
+{{ tpl $config $ | indent 4 -}}
+{{- end -}}
   # Configuration files: server, input, filters and output
   fluent-bit.conf: |
     [SERVICE]
