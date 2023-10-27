@@ -4,13 +4,36 @@ namespace: logging
 # logstash values
 logstash:
   deployment:
-    replicaCount: 2
+    replicaCount: 1
     initialDelaySeconds: 300
     periodSeconds: 10
     timeoutSeconds: 1
   image:
     name: docker.elastic.co/logstash/logstash
     tag: 7.1.1
+
+logstashConfig:
+  logstash.conf: |
+    input {
+      http {
+        port => 8080
+      }
+    }
+    filter {
+      prune {
+        blacklist_values => {
+          "log" => "(MYSQL_PASSWORD|AWS_SECRET)"
+        }
+      }
+    }
+    output {
+      loggly {
+        key => "3a8b5028-2301-4263-9709-79b969cb3a9b"
+        tag => "logstash,kubernetes"
+        host => "logs-01.loggly.com"
+        proto => "https"
+      }
+    }
 
 # fluent-bit values
 fluentbit:
