@@ -24,13 +24,13 @@ spec:
             - 'logstash-plugin install logstash-output-loggly && logstash-plugin install logstash-filter-prune && /usr/local/bin/docker-entrypoint '
           ports:
             - containerPort: {{ .Values.logstash.port }}
-          resources:
-            limits:
-              cpu: "500m"
-              memory: "256Mi"
-            requests:
-              cpu: "200m"
-              memory: "128Mi"
+#          resources:
+#            limits:
+#              cpu: "500m"
+#              memory: "256Mi"
+#            requests:
+#              cpu: "200m"
+#              memory: "128Mi"
           readinessProbe:
             httpGet:
               path: /
