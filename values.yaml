@@ -15,6 +15,11 @@ logstash:
   port: 8080 # must be same port as in logstashConfig port => 8080
   pdb:
     minAvailable: 1
+  hpa:
+    minReplicas: 2
+    maxReplicas: 5
+    cpu: 70
+
 # https://www.elastic.co/guide/en/logstash/current/config-setting-files.html
 logstashConfig:
   logstash.conf: |

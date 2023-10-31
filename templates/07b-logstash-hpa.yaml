@@ -7,12 +7,12 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Values.logstash.appname }}
-  minReplicas: 2
-  maxReplicas: 5
+  minReplicas: {{ .Values.logstash.hpa.minReplicas }}
+  maxReplicas: {{ .Values.logstash.hpa.maxReplicas }}
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 70
+        averageUtilization: {{ .Values.logstash.hpa.cpu }}
